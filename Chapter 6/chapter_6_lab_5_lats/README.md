@@ -53,13 +53,13 @@ lats/
 git clone <repo-url> && cd lats
 
 # Create a virtual environment and install dependencies
-python -m venv .venv
+uv venv
 # Linux/macOS
 source .venv/bin/activate
 # Windows
 .\.venv\Scripts\activate
 
-pip install -r requirements.txt
+uv sync --locked
 
 # Install the Claude CLI globally
 npm install -g @anthropic-ai/claude-code
@@ -95,7 +95,7 @@ The Claude Agent SDK requires Node.js in addition to the Python package:
 ```python
 !apt-get -qq install -y nodejs npm #Could be already available in Google colab, go to N°3
 !npm install -g @anthropic-ai/claude-code #Could be already available in Google colab, go to N°3
-!pip install -q claude-agent-sdk anyio python-dotenv
+!uv pip install --system -q claude-agent-sdk anyio python-dotenv
 ```
 
 Stage all files (including `.claude/skills/`) under one working directory and set the API key:

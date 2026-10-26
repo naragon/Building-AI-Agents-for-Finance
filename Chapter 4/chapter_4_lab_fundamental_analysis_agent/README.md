@@ -49,7 +49,7 @@ All commands from this point on assume your terminal is **inside the `fundamenta
 
 **Windows (PowerShell):**
 ```powershell
-python -m venv .venv
+uv venv
 .\.venv\Scripts\Activate.ps1
 ```
 If activation is blocked by execution policy, run once:
@@ -59,14 +59,14 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 **macOS / Linux:**
 ```bash
-python -m venv .venv
+uv venv
 source .venv/bin/activate
 ```
 
 ### 3. Install dependencies
 
 ```bash
-pip install -r requirements.txt
+uv sync --locked
 ```
 
 ### 4. Add your OpenAI API key

@@ -47,7 +47,7 @@ class Chapter3ReviewTests(unittest.TestCase):
             nbformat.validate(nbformat.from_dict(data))
             for index, cell in enumerate(data["cells"]):
                 source = "".join(cell["source"])
-                if cell["cell_type"] == "code" and not source.startswith("%pip"):
+                if cell["cell_type"] == "code" and "uv pip install" not in source:
                     compile(source, f"lab_{lab}_cell_{index}", "exec")
 
     def test_lab7_request_and_response_through_real_sdk(self):

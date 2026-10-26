@@ -29,7 +29,7 @@ Run all commands from this folder (the one containing `agentic_rag_lab.py`).
 **1. Create and activate a virtual environment**
 
 ```bash
-python -m venv .venv
+uv venv
 # Windows PowerShell:  .venv\Scripts\Activate.ps1
 # macOS/Linux:         source .venv/bin/activate
 ```
@@ -40,7 +40,7 @@ python -m venv .venv
 **2. Install dependencies**
 
 ```bash
-pip install -r requirements.txt
+uv sync --locked
 ```
 
 **3. Add your API keys**

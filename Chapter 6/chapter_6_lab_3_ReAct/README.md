@@ -37,13 +37,13 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 
 ```powershell
 # Windows (PowerShell)
-python -m venv .venv
+uv venv
 .\.venv\Scripts\Activate.ps1
 ```
 
 ```bash
 # macOS / Linux
-python3 -m venv .venv
+uv venv
 source .venv/bin/activate
 ```
 
@@ -56,7 +56,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ### 2. Install dependencies
 
 ```powershell
-pip install -r requirements.txt
+uv sync --locked
 ```
 
 ## Run

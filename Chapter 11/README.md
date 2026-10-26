@@ -46,7 +46,7 @@ Chapter 11/
 
 ```bash
 cd "Chapter 11"
-pip install -e .
+uv sync --locked
 python -m src.eval_harness.run --segment all --output scorecard.json
 ```
 

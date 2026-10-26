@@ -10,5 +10,5 @@ Two ways to work through this chapter's code:
 - **`src/`** — the complete project the chapter walks through
   (`planner.py`, `researcher.py`, `validator.py`, `synthesizer.py`,
   `tools/`, shared `common.py`), plus the figure sources under
-  `src/diagrams/`. Install with `pip install -r src/requirements.txt`
+  `src/diagrams/`. Install with `cd src && uv sync --locked`
   and set the API keys named in the chapter's Technical requirements.

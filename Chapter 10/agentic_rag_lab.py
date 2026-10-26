@@ -483,7 +483,7 @@ def step_6_agent(indices: dict[str, VectorStoreIndex]) -> None:
 # over the same nodes and fuses the two ranked lists. We use QueryFusionRetriever
 # with Reciprocal Rank Fusion (mode="reciprocal_rerank"), which fuses by rank and
 # so sidesteps the fact that BM25 scores and cosine similarities live on different
-# scales. (Requires: pip install llama-index-retrievers-bm25.)
+# scales. (Provided by the llama-index-retrievers-bm25 project dependency.)
 
 from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core.retrievers import QueryFusionRetriever

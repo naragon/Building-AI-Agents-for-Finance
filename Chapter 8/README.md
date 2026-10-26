@@ -18,10 +18,9 @@ A virtual environment keeps this project's dependencies isolated from the rest o
 ### Windows (PowerShell)
 
 ```powershell
-python -m venv .venv
+uv venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-pip install -r requirements.txt
+uv sync --locked
 ```
 
 If activation is blocked by execution policy, run this once for your user account:
@@ -33,10 +32,9 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ### macOS / Linux (bash or zsh)
 
 ```bash
-python3 -m venv .venv
+uv venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
+uv sync --locked
 ```
 
 ### Leaving the venv

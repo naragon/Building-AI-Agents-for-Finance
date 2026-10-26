@@ -23,11 +23,20 @@ eight; both files are provided.)
 
 ## Run
 
-```
-pip install -r requirements.txt   # crewai/google-adk: see note in file
+Each framework is an independent uv environment profile because several of
+their dependency trees conflict. Select the extra matching the implementation:
+
+```bash
+uv sync --locked --extra openai-agents
 export OPENAI_API_KEY=...         # plus provider keys as needed
-python openai_agents_sdk_agent.py
+uv run --extra openai-agents python openai_agents_sdk_agent.py
 ```
+
+Available extras are `openai-agents`, `langchain`, `autogen`, `pydantic-ai`,
+`llamaindex`, `mistral`, `crewai`, `google-adk`, and `claude-agent-sdk`.
+Only one may be selected at a time. `requirements.txt` is retained as a legacy
+combined package list, but incompatible frameworks must not be installed into
+the same environment.
 
 Each run prints the memo plus measured token usage and writes both to
 `outputs/<framework>.txt`. The captured outputs in `outputs/` are from

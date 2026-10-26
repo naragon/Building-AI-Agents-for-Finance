@@ -14,14 +14,14 @@ See `results-example.md` for a sample run.
 1. Create and activate a virtual environment:
 
    ```powershell
-   python -m venv .venv
+   uv venv
    .\.venv\Scripts\Activate.ps1
    ```
 
 2. Install dependencies:
 
    ```powershell
-   pip install -r requirements.txt
+   uv sync --locked
    ```
 
 3. Create a `.env` file in this folder with your API key:

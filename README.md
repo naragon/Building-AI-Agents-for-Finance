@@ -6,9 +6,21 @@ Most chapter folders contain one or more hands-on Jupyter notebooks
 named `chapter_<N>_lab_<M>_<topic>.ipynb`. Several chapters also ship
 a `common.py` with shared models, helpers, and sample data that the
 notebooks import; the notebooks auto-download `common.py` on first
-run in Colab. Chapter 11 is the exception: its evaluation harness is a
-pip-installable Python package run from the command line, with its own
-README.
+run in Colab. Chapter 11 is the exception: its evaluation harness is an
+installable Python package run from the command line, with its own README.
+
+## Package management
+
+This repository uses [uv](https://docs.astral.sh/uv/). Install uv before
+running a local lab. Each command-line lab is an independent project with its
+own `pyproject.toml` and committed `uv.lock`; run `uv sync --locked` from that
+project's directory. The existing `requirements.txt` files remain available
+for compatibility, but uv uses `pyproject.toml` and `uv.lock` as the source of
+truth.
+
+Notebook installation cells use `uv pip install` against the active kernel.
+Google Colab provides uv; for local notebooks, install uv before starting
+Jupyter so it is available to the kernel.
 
 ## Running the labs
 
@@ -24,8 +36,8 @@ notebook (e.g. `OPENAI_API_KEY`). The notebooks read keys with
 
 1. Copy [`.env.sample`](./.env.sample) to `.env` and fill in the keys
    you need (each section lists which labs use which key).
-2. Install the per-lab packages with the `%pip install` cell at the
-   top of each notebook.
+2. Install the per-lab packages with the `uv pip install` cell at the
+   top of each notebook. The command targets the active notebook interpreter.
 3. Open the notebook in Jupyter / VS Code / your editor of choice.
 
 The notebooks wrap the Colab import in `try / except ImportError` and
@@ -80,7 +92,7 @@ require network access and available provider credits.
 - Python 3.12.14; `anthropic==1.4.0`, `mistralai==2.9.4`,
   `pydantic==2.13.5`, `python-dotenv==1.2.3`; notebook validation with
   `nbformat==5.11.1`. Lab 7/8 installation cells pin these application packages.
-- Fresh installation and `pip check` passed. Six offline regression tests
+- Fresh installation and `uv pip check` passed. Six offline regression tests
   passed, including actual SDK request/response handling with mocked HTTP,
   Lab 7 truncation/empty-response rejection, Lab 8 tool dispatch, notebook
   validation and the scoring-script reference. Run

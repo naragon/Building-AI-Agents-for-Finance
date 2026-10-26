@@ -36,8 +36,8 @@ production-shaped version that calls the real Financial Modeling Prep API.
 ## Running a lab locally
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install jupyter llama-index llama-index-llms-openai openai-agents "pyautogen<0.4" yfinance matplotlib pydantic python-dotenv
+uv venv && source .venv/bin/activate
+uv pip install jupyter llama-index llama-index-llms-openai openai-agents "pyautogen<0.4" yfinance matplotlib pydantic python-dotenv
 export OPENAI_API_KEY="your_key"
 jupyter notebook
 ```
@@ -52,7 +52,7 @@ folder:
 
 ```bash
 cd "Chapter 7"
-pip install -r src/requirements.txt
+cd src && uv sync --locked
 ```
 
 `src/` is the chapter's project code as printed in the implementation
@@ -88,7 +88,7 @@ seen execution results, and `max_turns=5` provides a hard stop.
 ## Note on the AutoGen version
 
 Lab 3 and `src/autogen/` use the classic AutoGen 0.2-style API
-(`pip install "pyautogen<0.4"`), the most widely deployed and documented
+(`uv pip install "pyautogen<0.4"`), the most widely deployed and documented
 lineage. AutoGen 0.4 was a ground-up rewrite, and Microsoft has since folded
 the project's direction into the Microsoft Agent Framework; the community
 fork AG2 continues the 0.2 lineage. Chapter 3's AutoGen coverage picks up the

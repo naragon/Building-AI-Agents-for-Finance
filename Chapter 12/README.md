@@ -37,10 +37,10 @@ each finishes in seconds. The labs (`lab1_*`, `lab2_*`, `fa_workflow.py`,
 ## Setup
 
 ```bash
-python -m venv .venv
+uv venv
 .venv\Scripts\Activate.ps1          # Windows PowerShell
 # source .venv/bin/activate         # macOS / Linux
-pip install -r requirements.txt
+uv sync --locked
 cp .env.example .env                 # then put your OPENAI_API_KEY in .env
 ```
 

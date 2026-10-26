@@ -37,7 +37,7 @@ in the keys you need, and replace that cell with:
 
 ```python
 import os
-from dotenv import load_dotenv          # pip install python-dotenv
+from dotenv import load_dotenv          # uv pip install python-dotenv
 
 load_dotenv()
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
@@ -98,7 +98,7 @@ before debugging the agent — the tool is fine, the data is missing.
 
 The lab uses the workflow-based agent — `from
 llama_index.core.agent.workflow import ReActAgent`, driven with `await
-agent.run(...)` — which is why the install cell is `!pip install -U
+agent.run(...)` — which is why the install cell is `uv pip install -U
 llama-index`. On older `llama-index-core` releases (0.12.x, which is what you
 get if something else in the environment pins it) that class requires `name`
 and `description`, and the constructor call as written raises a Pydantic

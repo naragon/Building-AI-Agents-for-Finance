@@ -47,7 +47,7 @@ class AuditRegressionTests(unittest.TestCase):
 
     def test_autogen_notebook_requests_model_extra(self):
         nb = json.loads((ROOT/'Chapter 3/chapter_3_lab_4_autogen.ipynb').read_text())
-        installs = [''.join(c['source']) for c in nb['cells'] if c['cell_type']=='code' and '%pip install' in ''.join(c['source'])]
+        installs = [''.join(c['source']) for c in nb['cells'] if c['cell_type']=='code' and 'uv pip install' in ''.join(c['source'])]
         self.assertTrue(any('"autogen-ext[openai]"' in s for s in installs))
 
     def test_score_parser_accepts_only_integer_range(self):
