@@ -42,28 +42,26 @@ lats/
 
 ### Prerequisites
 
-- Python 3.10+
+- Python 3.12 (repository baseline)
 - Node.js (the Claude Agent SDK spawns the Node-based `claude` CLI under the hood)
 - An [Anthropic API key](https://console.anthropic.com/)
 
 ### Install
 
 ```bash
-# Clone and enter the directory
-git clone <repo-url> && cd lats
-
-# Create a virtual environment and install dependencies
-uv venv
+# From the repository root:
+uv sync --locked --group chapter-6-claude-agent-sdk
 # Linux/macOS
 source .venv/bin/activate
-# Windows
-.\.venv\Scripts\activate
-
-uv sync --locked
+# Windows alternative: .\.venv\Scripts\Activate.ps1
+cd "Chapter 6/chapter_6_lab_5_lats"
 
 # Install the Claude CLI globally
 npm install -g @anthropic-ai/claude-code
 ```
+
+Dependencies and the lockfile are managed at the root; `requirements.txt` is
+a legacy reference. See the [root setup guide](../../README.md#package-management).
 
 ### Configure
 

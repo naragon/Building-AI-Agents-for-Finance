@@ -1,0 +1,88 @@
+[project]
+name = "building-ai-agents-for-finance"
+version = "0.1.0"
+description = "Local environments for the Building AI Agents for Finance labs"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+# Select one lab profile at a time. Shared tooling can be added to any profile.
+[dependency-groups]
+notebooks = ["jupyterlab>=4", "ipykernel>=6", "python-dotenv>=1.0"]
+dev = [
+    "anthropic==1.4.0", "mistralai==2.9.4", "pydantic==2.13.5",
+    "python-dotenv==1.2.3", "nbformat==5.11.1", "httpx==0.28.1",
+]
+chapter-1 = [
+    "openai", "openai-agents", "google-genai", "anthropic",
+    "newsapi-python", "yfinance", "typing-extensions>=4.15",
+    "transformers<5", "torch", "accelerate", "nest-asyncio", "python-dotenv",
+]
+chapter-2 = [
+    "openai-agents", "financetoolkit", "langchain-openai", "chromadb",
+    "llama-index", "yfinance", "pandas", "nest-asyncio", "python-dotenv",
+]
+chapter-3-langchain = ["langchain==1.3.13", "langchain-openai==1.3.5", "pydantic", "python-dotenv"]
+chapter-3-google-adk = ["google-adk==2.4.0", "google-genai", "pydantic", "python-dotenv"]
+chapter-3-crewai = ["crewai[tools]==1.15.2", "pydantic", "python-dotenv"]
+chapter-3-autogen = ["autogen-agentchat==0.7.5", "autogen-ext[openai]==0.7.5", "autogen-core==0.7.5", "pydantic", "python-dotenv"]
+chapter-3-openai-agents = ["openai-agents==0.18.2", "pydantic", "python-dotenv"]
+chapter-3-llamaindex = ["llama-index==0.14.23", "llama-index-core==0.14.23", "llama-index-llms-openai==0.7.9", "pydantic", "python-dotenv"]
+chapter-3-anthropic = ["anthropic==1.4.0", "pydantic==2.13.5", "python-dotenv==1.2.3"]
+chapter-3-mistral = ["mistralai==2.9.4", "pydantic==2.13.5", "python-dotenv==1.2.3"]
+# The bake-off predates the notebook's Mistral pin; retain its original version.
+chapter-3-bakeoff-mistral = ["mistralai==2.6.0", "pydantic", "python-dotenv"]
+chapter-3-pydantic-ai = ["pydantic-ai-slim[openai]==2.9.0", "pydantic", "python-dotenv"]
+chapter-3-claude-agent-sdk = ["claude-agent-sdk==0.2.116", "pydantic", "python-dotenv"]
+chapter-4 = [
+    "openai-agents>=0.0.7", "yfinance>=0.2.54", "requests>=2.32.0",
+    "python-dotenv>=1.0.0", "pandas>=2.2.0", "numpy>=1.26.0",
+]
+chapter-5 = [
+    "pydantic-ai-slim[openai]==2.9.0", "pydantic>=2.7", "httpx>=0.27",
+    "python-dotenv>=1.0", "tavily-python>=0.5",
+]
+chapter-6-anthropic = ["anthropic>=0.40.0", "python-dotenv>=1.0.0"]
+chapter-6-claude-agent-sdk = ["claude-agent-sdk>=0.1.0", "yfinance>=0.2.40", "anyio", "python-dotenv>=1.0.0"]
+chapter-7 = [
+    "llama-index>=0.12", "llama-index-llms-openai", "financetoolkit>=1.9",
+    "pandas>=2.0", "python-dotenv>=1.0", "openai-agents>=0.0.7",
+    "requests>=2.31", "pyautogen<0.4", "yfinance>=0.2", "matplotlib>=3.8",
+]
+chapter-8 = [
+    "langgraph>=0.2.50", "langchain-anthropic>=0.3.0", "langchain-openai>=0.3.0",
+    "langchain-core>=0.3.0", "yfinance>=0.2.40", "python-dotenv>=1.0.1",
+    "numpy", "pandas",
+]
+chapter-9 = ["llama-index", "llama-index-llms-openai", "pydantic", "python-dotenv"]
+chapter-10 = [
+    "llama-index-core>=0.14.5", "llama-index-llms-anthropic>=0.11.0",
+    "llama-index-embeddings-openai>=0.6.0", "llama-index-retrievers-bm25>=0.7.0",
+    "python-dotenv>=1.0.0",
+]
+chapter-11 = ["kyc-eval-harness", "pytest>=8.0", "ruff>=0.5"]
+chapter-11-production = [{include-group = "chapter-11"}, "langfuse>=2.40", "deepeval>=1.0"]
+chapter-12 = ["openai-agents>=0.17", "openai>=1.50", "yfinance>=0.2.40", "python-dotenv>=1.0"]
+
+[tool.uv]
+package = false
+required-version = ">=0.13.1"
+default-groups = []
+# A single lock tracks all profiles, but sync installs only the selected profile.
+# This also prevents accidental mixing of incompatible framework generations.
+conflicts = [[
+    {group = "dev"},
+    {group = "chapter-1"}, {group = "chapter-2"},
+    {group = "chapter-3-langchain"}, {group = "chapter-3-google-adk"},
+    {group = "chapter-3-crewai"}, {group = "chapter-3-autogen"},
+    {group = "chapter-3-openai-agents"}, {group = "chapter-3-llamaindex"},
+    {group = "chapter-3-anthropic"}, {group = "chapter-3-mistral"},
+    {group = "chapter-3-bakeoff-mistral"}, {group = "chapter-3-pydantic-ai"},
+    {group = "chapter-3-claude-agent-sdk"}, {group = "chapter-4"},
+    {group = "chapter-5"}, {group = "chapter-6-anthropic"},
+    {group = "chapter-6-claude-agent-sdk"}, {group = "chapter-7"},
+    {group = "chapter-8"}, {group = "chapter-9"}, {group = "chapter-10"},
+    {group = "chapter-11"}, {group = "chapter-12"},
+]]
+
+[tool.uv.sources]
+kyc-eval-harness = {path = "Chapter 11", editable = true}

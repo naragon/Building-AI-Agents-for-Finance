@@ -6,7 +6,7 @@ The agent alternates **Thought → Action → Observation** steps, printed to th
 
 ## Prerequisites
 
-- Python 3.10+
+- Python 3.12 (repository baseline)
 - Node.js 18+ (the Claude Agent SDK launches the Claude Code CLI under the hood)
 - An Anthropic API key
 
@@ -33,31 +33,17 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 
 ## Setup
 
-### 1. Create a virtual environment
+From the repository root:
 
 ```powershell
-# Windows (PowerShell)
-uv venv
+uv sync --locked --group chapter-6-claude-agent-sdk
 .\.venv\Scripts\Activate.ps1
+cd "Chapter 6/chapter_6_lab_3_ReAct"
 ```
 
-```bash
-# macOS / Linux
-uv venv
-source .venv/bin/activate
-```
-
-If PowerShell blocks the activation script, allow it for the current user once:
-
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-### 2. Install dependencies
-
-```powershell
-uv sync --locked
-```
+On macOS/Linux use `source .venv/bin/activate` at the root instead.
+The root profile and lockfile replace per-lab environments; see the
+[root setup guide](../../README.md#package-management).
 
 ## Run
 

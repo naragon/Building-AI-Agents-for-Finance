@@ -45,10 +45,20 @@ Chapter 11/
 ## Quickstart
 
 ```bash
+# From the repository root (Python 3.12, uv >=0.13.1):
+uv sync --locked --group chapter-11
 cd "Chapter 11"
-uv sync --locked
-python -m src.eval_harness.run --segment all --output scorecard.json
+uv run --project .. --locked --group chapter-11 kyc-eval --segment all --output scorecard.json
 ```
+
+Dependencies and the lockfile are managed at the repository root; this folder's
+`pyproject.toml` is retained for package metadata and the `kyc-eval` entry point.
+For the remaining plain `python` examples, activate the **root** environment
+(`source ../.venv/bin/activate` on macOS/Linux or
+`..\.venv\Scripts\Activate.ps1` in PowerShell), or prefix commands with
+`uv run --project .. --locked --group chapter-11`.
+Use the root `chapter-11-production` group instead for optional Langfuse/DeepEval
+integrations. See the [root setup guide](../README.md#package-management).
 
 The harness will load every case from `data/kyc_eval/`, run the KYC
 agent on each (using the bundled deterministic mock unless a real
@@ -64,7 +74,8 @@ can use this as a production-promotion gate after configuration.
 
 To activate CI, copy `ci/github_actions.yml` into the repository-root
 `.github/workflows/` directory. The workflow starts on every pull request and
-push to main; evaluation runs for changes to Chapter 11 or workflow files.
+push to main; evaluation runs for changes to Chapter 11, workflow files, or
+root dependency/Python configuration.
 Configure **kyc-eval-required** (the final gate, not the conditional scorecard
 job) as required in branch protection or repository rules. It passes unrelated
 changes only after change detection succeeds, and blocks relevant changes if

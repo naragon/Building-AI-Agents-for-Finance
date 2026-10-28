@@ -24,24 +24,19 @@ The corpus (`data/`) is three small synthetic financial documents:
 
 ## Setup
 
-Run all commands from this folder (the one containing `agentic_rag_lab.py`).
-
-**1. Create and activate a virtual environment**
+Use Python 3.12 and uv >=0.13.1. Install from the **repository root**:
 
 ```bash
-uv venv
-# Windows PowerShell:  .venv\Scripts\Activate.ps1
-# macOS/Linux:         source .venv/bin/activate
+uv sync --locked --group chapter-10
+source .venv/bin/activate
+# Windows alternative: .\.venv\Scripts\Activate.ps1
+cd "Chapter 10"
 ```
 
-> On Windows, if activation is blocked by the execution policy, run
-> `Set-ExecutionPolicy -Scope Process Bypass` in the same PowerShell session first.
-
-**2. Install dependencies**
-
-```bash
-uv sync --locked
-```
+Run subsequent commands from this chapter folder using the activated root
+environment. Dependencies and the single lockfile live at the repository root;
+`requirements.txt` is a legacy reference. See the
+[root setup guide](../README.md#package-management).
 
 **3. Add your API keys**
 

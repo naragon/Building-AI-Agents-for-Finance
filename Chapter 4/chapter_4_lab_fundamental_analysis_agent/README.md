@@ -36,38 +36,21 @@ OrchestratorAgent
 
 ## Setup
 
-### 1. Clone the repo and enter the folder
+### 1. Install from the repository root
+
+Use Python 3.12 and uv >=0.13.1:
 
 ```bash
-git clone <your-repo-url>
-cd fundamental_analysis_agent
-```
-
-All commands from this point on assume your terminal is **inside the `fundamental_analysis_agent/` folder**.
-
-### 2. Create and activate a virtual environment
-
-**Windows (PowerShell):**
-```powershell
-uv venv
-.\.venv\Scripts\Activate.ps1
-```
-If activation is blocked by execution policy, run once:
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-```
-
-**macOS / Linux:**
-```bash
-uv venv
+uv sync --locked --group chapter-4
 source .venv/bin/activate
+# Windows alternative: .\.venv\Scripts\Activate.ps1
+cd "Chapter 4/chapter_4_lab_fundamental_analysis_agent"
 ```
 
-### 3. Install dependencies
-
-```bash
-uv sync --locked
-```
+All subsequent commands run from this lab folder using the activated **root**
+environment. Dependencies and the lockfile live at the repository root;
+`requirements.txt` is a legacy reference. See the
+[root setup guide](../../README.md#package-management).
 
 ### 4. Add your OpenAI API key
 
@@ -184,7 +167,7 @@ DIR/<TICKER>_final_report.txt
 ## Project Layout
 
 ```
-fundamental_analysis_agent/        ← repo root (you run commands from here)
+chapter_4_lab_fundamental_analysis_agent/  ← lab folder (not the repository root)
 ├── README.md                      ← you are here
 ├── requirements.txt
 ├── .env.example                   ← template — copy to .env and fill in your key

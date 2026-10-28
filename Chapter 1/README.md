@@ -15,7 +15,12 @@ All three run on Google Colab (recommended) or locally. Each notebook reads its
 keys through `google.colab.userdata` and falls back to environment variables
 when the Colab import fails, so the same cell works in both places. For the
 local setup, copy the root [`.env.sample`](../.env.sample) to `.env` and fill in
-the keys you need.
+the keys you need. The credential cells load `.env` from the kernel's working
+directory or its nearest parent containing that file, so the root `.env` works
+when the kernel starts at the repository root or inside `Chapter 1/`.
+Already-exported environment variables take precedence. After changing `.env`,
+restart the kernel and rerun the credential cells to avoid retaining old values.
+Colab continues to use Colab Secrets rather than local `.env` loading.
 
 The Apple Q3 2025 earnings-call transcript used in Lab 1 is **synthetic** and
 defined inline in the notebook — nothing is downloaded and no market-data API is
@@ -57,7 +62,7 @@ GPU or swap `model_id` for a smaller instruct model such as
 
 ## Why there is no `requirements.txt`
 
-Each notebook installs its own packages, in the section that needs them:
+Colab notebooks install their own packages, in the section that needs them:
 
 | Lab | Installed in the notebook | Assumed present in Colab |
 |---|---|---|
@@ -65,7 +70,14 @@ Each notebook installs its own packages, in the section that needs them:
 | Lab 2 | `openai` | — |
 | Lab 3 | `openai`, `newsapi-python`, `openai-agents` | `yfinance`, `nest_asyncio` |
 
-Keeping the installs in the notebooks leaves one source of truth instead of two
-that drift apart, and it avoids pinning `torch` and `transformers` against the
-versions Colab already ships — a reliable way to break the runtime. Running
-locally, install the packages in both columns for the lab you want to run.
+Colab retains these installation cells to work with its preinstalled packages.
+For **local** execution, dependencies from both columns are managed by the root
+`chapter-1` profile (Python 3.12). From the repository root:
+
+```bash
+uv sync --locked --group chapter-1 --group notebooks
+uv run --locked --group chapter-1 --group notebooks jupyter lab
+```
+
+Choose the root `.venv` kernel and **skip notebook package-installation cells**
+to preserve the lockfile. See the [root setup guide](../README.md#package-management).

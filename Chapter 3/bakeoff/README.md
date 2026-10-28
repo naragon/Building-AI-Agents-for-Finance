@@ -23,20 +23,23 @@ eight; both files are provided.)
 
 ## Run
 
-Each framework is an independent uv environment profile because several of
-their dependency trees conflict. Select the extra matching the implementation:
+Framework profiles and the single lockfile now live at the repository root
+(Python 3.12, uv >=0.13.1). From the **repository root**:
 
 ```bash
-uv sync --locked --extra openai-agents
+uv sync --locked --group chapter-3-openai-agents
 export OPENAI_API_KEY=...         # plus provider keys as needed
-uv run --extra openai-agents python openai_agents_sdk_agent.py
+cd "Chapter 3/bakeoff"
+uv run --project ../.. --locked --group chapter-3-openai-agents python openai_agents_sdk_agent.py
 ```
 
-Available extras are `openai-agents`, `langchain`, `autogen`, `pydantic-ai`,
-`llamaindex`, `mistral`, `crewai`, `google-adk`, and `claude-agent-sdk`.
-Only one may be selected at a time. `requirements.txt` is retained as a legacy
-combined package list, but incompatible frameworks must not be installed into
-the same environment.
+Choose the matching root group: `chapter-3-openai-agents`, `chapter-3-langchain`,
+`chapter-3-autogen`, `chapter-3-pydantic-ai`, `chapter-3-llamaindex`,
+`chapter-3-bakeoff-mistral`, `chapter-3-crewai`, `chapter-3-google-adk`, or
+`chapter-3-claude-agent-sdk`. The separate Mistral bake-off group preserves its
+original pin; `chapter-3-mistral` is for the notebook. Only one profile may be
+selected at a time. `requirements.txt` is a historical combined package list,
+not an installation target. See the [root setup guide](../../README.md#package-management).
 
 Each run prints the memo plus measured token usage and writes both to
 `outputs/<framework>.txt`. The captured outputs in `outputs/` are from

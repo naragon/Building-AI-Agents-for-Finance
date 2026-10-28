@@ -36,17 +36,23 @@ each finishes in seconds. The labs (`lab1_*`, `lab2_*`, `fa_workflow.py`,
 
 ## Setup
 
+Use Python 3.12 and uv >=0.13.1. From the **repository root**:
+
 ```bash
-uv venv
-.venv\Scripts\Activate.ps1          # Windows PowerShell
-# source .venv/bin/activate         # macOS / Linux
-uv sync --locked
+uv sync --locked --group chapter-12
+source .venv/bin/activate
+# Windows alternative: .\.venv\Scripts\Activate.ps1
+cd "Chapter 12"
 cp .env.example .env                 # then put your OPENAI_API_KEY in .env
 ```
 
+Dependencies and the single lockfile are managed at the repository root;
+`requirements.txt` is a legacy reference. See the
+[root setup guide](../README.md#package-management).
+
 Only `OPENAI_API_KEY` is required. The labs run on `gpt-4o-mini`, so a full run of the tiny
 watchlist costs a fraction of a cent. The coverage allow-list is in `fa_workflow.py` (`ALLOWED_TICKERS`). 
-On Windows you can invoke the interpreter directly as`.venv/Scripts/python.exe` instead of activating first; the commands below use `python`.
+On Windows you can invoke the root interpreter directly as `../.venv/Scripts/python.exe` instead of activating first; the commands below use `python`.
 
 ## Running each script
 

@@ -10,9 +10,18 @@ Three runnable labs plus the chapter's full project source.
 | Lab 2 | `chapter_9_lab_2_fraud_investigation.ipynb` | *Advanced pattern: Multi-agent fraud investigation* — the adversarial fraud debate (prosecutor, defender, decision agent) |
 | Lab 3 | `chapter_9_lab_3_underwriting.ipynb` | The underwriting extension — a sequential workflow whose enrichment stage fans out in parallel |
 
-All three labs run on Google Colab or locally (Python 3.11+). Each notebook
-installs its own dependencies (`llama-index`, `llama-index-llms-openai`,
-`pydantic`, `python-dotenv`) and needs an `OPENAI_API_KEY`.
+All three labs run on Google Colab or locally (Python 3.12). Colab notebooks
+install their own dependencies; locally, use the root profile instead:
+
+```bash
+# From the repository root:
+uv sync --locked --group chapter-9 --group notebooks
+uv run --locked --group chapter-9 --group notebooks jupyter lab
+```
+
+Select the root `.venv` kernel and **skip notebook installation cells locally**
+to preserve the lockfile. All labs need `OPENAI_API_KEY`. The same `chapter-9`
+profile covers the project source. See the [root setup guide](../README.md#package-management).
 
 `common.py` holds the shared Pydantic models, sample claim data, and helpers
 (`log_audit`, `days_between`) used by all three labs.

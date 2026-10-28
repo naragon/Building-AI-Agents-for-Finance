@@ -5,7 +5,11 @@ import subprocess
 
 
 def relevant(paths: list[bytes]) -> bool:
-    return any(path.startswith((b"Chapter 11/", b".github/workflows/")) for path in paths)
+    return any(
+        path in {b"pyproject.toml", b"uv.lock", b".python-version"}
+        or path.startswith((b"Chapter 11/", b".github/workflows/"))
+        for path in paths
+    )
 
 
 def main() -> None:

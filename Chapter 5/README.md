@@ -10,5 +10,11 @@ Two ways to work through this chapter's code:
 - **`src/`** — the complete project the chapter walks through
   (`planner.py`, `researcher.py`, `validator.py`, `synthesizer.py`,
   `tools/`, shared `common.py`), plus the figure sources under
-  `src/diagrams/`. Install with `cd src && uv sync --locked`
-  and set the API keys named in the chapter's Technical requirements.
+  `src/diagrams/`. From the repository root, install with
+  `uv sync --locked --group chapter-5`, then run with
+  `uv run --locked --group chapter-5 python "Chapter 5/src/deep_search_agent.py"`.
+  Set the API keys named in the chapter's Technical requirements.
+
+For local notebooks, add `--group notebooks` and launch Jupyter with the same
+root profile. Skip notebook package-installation cells locally; they are for
+Colab and bypass the lockfile. See the [root setup guide](../README.md#package-management).

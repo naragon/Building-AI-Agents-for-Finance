@@ -43,23 +43,23 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
       - uses: astral-sh/setup-uv@v7
         with:
-          version: "0.9.21"
+          version: "0.13.1"
           enable-cache: true
-          cache-dependency-glob: "Chapter 11/uv.lock"
+          cache-dependency-glob: "uv.lock"
 
       - name: Install dependencies
-        run: uv sync --locked
+        run: uv sync --project .. --locked --group chapter-11
 
       - name: Run evaluation harness
         env:
           KYC_AGENT_VERSION: ${{ github.sha }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          uv run python -m src.eval_harness.run \
+          uv run --project .. --locked --group chapter-11 python -m src.eval_harness.run \
             --segment all \
             --output scorecard.json \
             --markdown scorecard.md \
@@ -77,7 +77,7 @@ jobs:
       - name: Generate model risk report
         if: always()
         run: |
-          uv run python -m src.reporting.model_risk_report scorecard.json \
+          uv run --project .. --locked --group chapter-11 python -m src.reporting.model_risk_report scorecard.json \
             --out model_risk_report.md
 
       - name: Upload model risk report

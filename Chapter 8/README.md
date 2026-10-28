@@ -7,20 +7,22 @@ Source code and chapter prose for a chapter of the book *Building AI Agents in F
 
 ## Requirements
 
-- Python **3.10 or later**
+- Python **3.12** (repository baseline)
 - An **Anthropic** API key (mandatory)
 - An **OpenAI** API key (only needed to run the debate stage)
 
 ## Setting up a virtual environment
 
-A virtual environment keeps this project's dependencies isolated from the rest of your system and makes the install reproducible.
+Dependencies and `uv.lock` are managed at the repository root, not in this
+chapter. Run the following setup from the **repository root** using uv >=0.13.1.
+See the [root setup guide](../README.md#package-management).
 
 ### Windows (PowerShell)
 
 ```powershell
-uv venv
+uv sync --locked --group chapter-8
 .\.venv\Scripts\Activate.ps1
-uv sync --locked
+cd "Chapter 8"
 ```
 
 If activation is blocked by execution policy, run this once for your user account:
@@ -32,9 +34,9 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ### macOS / Linux (bash or zsh)
 
 ```bash
-uv venv
+uv sync --locked --group chapter-8
 source .venv/bin/activate
-uv sync --locked
+cd "Chapter 8"
 ```
 
 ### Leaving the venv
@@ -75,7 +77,7 @@ export OPENAI_API_KEY=sk-...
 
 **Option B — load `.env` automatically with `python-dotenv`.**
 
-`python-dotenv` is already in `requirements.txt`. Add these two lines at the very top of either script (before the other imports) and the `.env` file is read on every run:
+`python-dotenv` is already in the root `chapter-8` dependency group (`requirements.txt` is a legacy reference). Add these two lines at the very top of either script (before the other imports) and the `.env` file is read on every run:
 
 ```python
 from dotenv import load_dotenv

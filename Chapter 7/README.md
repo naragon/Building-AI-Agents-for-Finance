@@ -36,23 +36,26 @@ production-shaped version that calls the real Financial Modeling Prep API.
 ## Running a lab locally
 
 ```bash
-uv venv && source .venv/bin/activate
-uv pip install jupyter llama-index llama-index-llms-openai openai-agents "pyautogen<0.4" yfinance matplotlib pydantic python-dotenv
+# From the repository root:
+uv sync --locked --group chapter-7 --group notebooks
 export OPENAI_API_KEY="your_key"
-jupyter notebook
+uv run --locked --group chapter-7 --group notebooks jupyter lab
 ```
 
-Python 3.11+ recommended. Each notebook also installs its own dependencies in
-its first cell, so installing just `jupyter` and running the notebook works too.
+Use Python 3.12 and the root `.venv` kernel. **Skip notebook installation
+cells locally**; they are for Colab and bypass the root lockfile. See the
+[root setup guide](../README.md#package-management).
 
 ## Project source (`src/`)
 
-Install its pinned dependencies first and run the modules from this
-folder:
+Install from the repository root and run the modules from `Chapter 7/`
+(not `src/`, since module commands below import the `src` package):
 
 ```bash
+uv sync --locked --group chapter-7
+source .venv/bin/activate
+# Windows alternative: .\.venv\Scripts\Activate.ps1
 cd "Chapter 7"
-cd src && uv sync --locked
 ```
 
 `src/` is the chapter's project code as printed in the implementation
@@ -72,7 +75,7 @@ in the environment (or in a `.env` file):
 - `src/extensions/parallel_analysis.py` — the parallel portfolio runner;
   run with `python -m src.extensions.parallel_analysis`
 - `src/common.py` — shared thresholds, prompt helpers, and configuration
-- `src/requirements.txt` — pinned dependencies for all three implementations
+- `src/requirements.txt` — historical dependency reference; use the root `chapter-7` group
 
 ## Note on iteration limits and termination
 

@@ -11,16 +11,63 @@ installable Python package run from the command line, with its own README.
 
 ## Package management
 
-This repository uses [uv](https://docs.astral.sh/uv/). Install uv before
-running a local lab. Each command-line lab is an independent project with its
-own `pyproject.toml` and committed `uv.lock`; run `uv sync --locked` from that
-project's directory. The existing `requirements.txt` files remain available
-for compatibility, but uv uses `pyproject.toml` and `uv.lock` as the source of
-truth.
+This repository uses [uv](https://docs.astral.sh/uv/) **0.13.1 or later** and
+**Python 3.12** (`.python-version`). The root `pyproject.toml` defines dependency
+profiles for every chapter; the single root `uv.lock` pins their resolutions.
+Run setup commands from the **repository root**:
 
-Notebook installation cells use `uv pip install` against the active kernel.
-Google Colab provides uv; for local notebooks, install uv before starting
-Jupyter so it is available to the kernel.
+```bash
+uv sync --locked --group chapter-5
+uv run --locked --group chapter-5 python "Chapter 5/src/deep_search_agent.py" --help
+```
+
+Select **one lab profile at a time**. Switching profiles with `uv sync` updates
+the root `.venv`, removing packages from the previous profile. Framework
+versions are intentionally isolated; `--all-groups` is not supported. The
+`notebooks` tooling group can be combined with any lab profile. No lab profile
+is installed by a plain `uv sync`.
+
+| Profile | Coverage |
+| --- | --- |
+| `chapter-1`, `chapter-2` | All notebooks in the respective chapter |
+| `chapter-3-langchain`, `chapter-3-google-adk`, `chapter-3-crewai` | Chapter 3 Labs 1–3 and matching bake-off scripts |
+| `chapter-3-autogen`, `chapter-3-openai-agents`, `chapter-3-llamaindex` | Chapter 3 Labs 4–6 and matching bake-off scripts |
+| `chapter-3-anthropic`, `chapter-3-mistral`, `chapter-3-pydantic-ai` | Chapter 3 Labs 7–9 (PydanticAI also covers its bake-off script) |
+| `chapter-3-bakeoff-mistral`, `chapter-3-claude-agent-sdk` | Separate bake-off implementations, retaining their original pins |
+| `chapter-4`, `chapter-5` | Chapter 4 lab; Chapter 5 notebooks and source |
+| `chapter-6-anthropic` | Self-Refine, Self-Consistency, Tree of Thoughts |
+| `chapter-6-claude-agent-sdk` | ReAct and LATS (also require the Claude CLI/Node.js) |
+| `chapter-7`, `chapter-8`, `chapter-9`, `chapter-10` | Chapter source and notebooks where present |
+| `chapter-11` | Editable KYC harness, pytest, and Ruff |
+| `chapter-11-production` | Chapter 11 plus optional Langfuse/DeepEval integrations |
+| `chapter-12` | Production-agent scripts |
+| `dev` | Root offline regression suite |
+
+Chapter 1 includes PyTorch/Transformers/Accelerate for its local-model examples;
+these are large downloads and the shown Llama examples need suitable GPU
+hardware and access to the gated model weights. Locking dependencies does not
+provide model weights, external CLIs, API credentials, or validate live APIs.
+
+Chapter 11 retains its `pyproject.toml` **only as installable package metadata**
+(including runtime requirements for standalone package installation). It is a
+local editable dependency of the root profiles, not a uv workspace member or
+an independently locked environment. Always select the root project when
+running uv inside Chapter 11: `uv run --project .. --locked --group chapter-11 ...`.
+The old `requirements.txt` files are historical compatibility references, not
+the source of truth for local uv setup.
+
+To change dependencies, edit the root dependency group (or use
+`uv add --group <profile> <package>`) and run `uv lock` at the root. Commit both
+`pyproject.toml` and `uv.lock`. For the offline checks:
+
+```bash
+uv run --locked --group dev python -m unittest discover -s tests -v
+```
+
+Notebook installation cells remain available for standalone **Colab** use.
+For local locked execution, **skip those installation cells**: `uv pip install`
+would bypass the project lock and can alter the kernel environment. See the
+local setup below.
 
 ## Running the labs
 
@@ -36,9 +83,15 @@ notebook (e.g. `OPENAI_API_KEY`). The notebooks read keys with
 
 1. Copy [`.env.sample`](./.env.sample) to `.env` and fill in the keys
    you need (each section lists which labs use which key).
-2. Install the per-lab packages with the `uv pip install` cell at the
-   top of each notebook. The command targets the active notebook interpreter.
-3. Open the notebook in Jupyter / VS Code / your editor of choice.
+2. From the repository root, select the notebook's profile and Jupyter tooling:
+   ```bash
+   uv sync --locked --group chapter-5 --group notebooks
+   uv run --locked --group chapter-5 --group notebooks jupyter lab
+   ```
+3. Open the notebook, select the root `.venv` Python kernel (also in VS Code),
+   and **skip package-installation cells**. Stop kernels before switching profiles
+   and restart them afterwards. Do not use local “Run all” with Colab installation
+   cells enabled.
 
 The notebooks wrap the Colab import in `try / except ImportError` and
 fall back to reading from the environment when running locally.
@@ -47,12 +100,11 @@ fall back to reading from the environment when running locally.
 
 ### Chapter 3 setup and example types
 
-Use a separate environment for each framework, especially CrewAI and Google
-ADK. Python 3.12 was used for the Lab 7/8 checks recorded below; check each
-package's Python constraints before using a different interpreter version.
-Install the packages from the chosen notebook's installation cell. The
-pins in `Chapter 3/bakeoff/requirements.txt` belong to the separate bake-off
-scripts, not to every notebook.
+Select the matching root `chapter-3-*` profile for each framework, especially
+CrewAI and Google ADK; do not combine profiles. Local execution uses Python 3.12
+and the root lockfile. Colab uses the chosen notebook's installation cell.
+The pins in `Chapter 3/bakeoff/requirements.txt` are historical bake-off
+references, not instructions for installing every framework together.
 
 | Example | Main packages (plus the notebook's supporting dependencies) | Credential |
 | --- | --- | --- |

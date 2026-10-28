@@ -6,23 +6,22 @@ See `results-example.md` for a sample run.
 
 ## Requirements
 
-- Python 3.10+ (the script uses `str | None` typing syntax)
+- Python 3.12 (repository baseline)
 - An Anthropic API key
 
 ## Setup
 
-1. Create and activate a virtual environment:
+1. From the repository root, install the shared profile:
 
    ```powershell
-   uv venv
+   uv sync --locked --group chapter-6-anthropic
    .\.venv\Scripts\Activate.ps1
+   cd "Chapter 6/chapter_6_lab_2_self-consistency"
    ```
 
-2. Install dependencies:
-
-   ```powershell
-   uv sync --locked
-   ```
+2. On macOS/Linux use `source .venv/bin/activate` at the root instead.
+   Dependencies and `uv.lock` live at the repository root; `requirements.txt`
+   is a legacy reference. See the [root setup guide](../../README.md#package-management).
 
 3. Create a `.env` file in this folder with your API key:
 

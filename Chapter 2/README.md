@@ -132,10 +132,17 @@ Each notebook installs its own packages, in the section that needs them:
 | Lab 5 | `openai`, `openai-agents` | `nest_asyncio` |
 | Lab 6 | `openai`, `openai-agents`, `financetoolkit` | `nest_asyncio`, `pandas` |
 
-Keeping the installs in the notebooks leaves one source of truth instead of two
-that drift apart, and it avoids pinning packages against the versions Colab
-already ships. Running locally, install the packages in both columns for the
-lab you want to run.
+Colab retains these installation cells to work with its preinstalled packages.
+For **local** execution, dependencies from both columns are managed by the root
+`chapter-2` profile (Python 3.12). From the repository root:
+
+```bash
+uv sync --locked --group chapter-2 --group notebooks
+uv run --locked --group chapter-2 --group notebooks jupyter lab
+```
+
+Choose the root `.venv` kernel and **skip notebook package-installation cells**
+to preserve the lockfile. See the [root setup guide](../README.md#package-management).
 
 ## Known rough edges
 
